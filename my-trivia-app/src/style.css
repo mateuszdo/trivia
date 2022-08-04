@@ -105,15 +105,9 @@ hr {
   }
 }
 
-.lemon {
-  position: absolute;
-  left: 62.24%;
-  right: -62.24%;
-  top: 161.16%;
-  bottom: -161.16%;
-
-  /* Lemony - medium */
-
-  background: #FFFAD1;
-  transform: rotate(-128.49deg);
+.green-button {
+  background-color: green;
+}
+.red-button {
+  background-color: red;
 }

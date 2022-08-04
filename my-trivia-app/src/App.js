@@ -31,10 +31,11 @@ function App() {
     return <Question 
               key={nanoid()}
               question={JSON.stringify(element.question)} 
-              answer1={JSON.stringify(element.correct_answer)}
+              correctAnswer={JSON.stringify(element.correct_answer)}
               answer2={JSON.stringify(element.incorrect_answers[1])}
               answer3={JSON.stringify(element.incorrect_answers[2])}
               answer4={JSON.stringify(element.incorrect_answers[0])}
+              
       />
   })
   
