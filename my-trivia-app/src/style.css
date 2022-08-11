@@ -48,7 +48,8 @@ body {
 }
 
 .question {
-  margin: 20px;
+  margin: 40px;
+  padding: 20px;
   justify-self: center;
 }
 .trivia {
@@ -106,8 +107,10 @@ hr {
 }
 
 .green-button {
-  background-color: green;
+  background-color: rgb(37, 206, 37);
+  color: black;
 }
 .red-button {
-  background-color: red;
+  background-color: rgb(240, 80, 80);
+  color: black;
 }

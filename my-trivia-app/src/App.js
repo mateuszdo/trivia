@@ -23,18 +23,38 @@ function App() {
     
   },[])
   
-  
+  // helper function for randomly show answers
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  }
  
  
   const questionElements = questions.map(element => {
     console.log(element)
+    let answers = [
+                   [element.correct_answer, true], 
+                   [element.incorrect_answers[0], false],
+                   [element.incorrect_answers[1], false],
+                   [element.incorrect_answers[2], false]
+                  ]
+
+    let shuffledAnswers = shuffle(answers);
+    console.log(shuffledAnswers);
+
     return <Question 
               key={nanoid()}
               question={JSON.stringify(element.question)} 
-              correctAnswer={JSON.stringify(element.correct_answer)}
-              answer2={JSON.stringify(element.incorrect_answers[1])}
-              answer3={JSON.stringify(element.incorrect_answers[2])}
-              answer4={JSON.stringify(element.incorrect_answers[0])}
+              //correctAnswer={JSON.stringify(element.correct_answer)}
+              //answer2={JSON.stringify(element.incorrect_answers[1])}
+              //answer3={JSON.stringify(element.incorrect_answers[2])}
+              //answer4={JSON.stringify(element.incorrect_answers[0])}
+              answers={shuffledAnswers}
               
       />
   })
