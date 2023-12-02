@@ -12,16 +12,28 @@ function App() {
     isClicked: false,
     value: 0,
   })
-  console.log(nextButtonClicked)
+  const [counter, setCounter] = React.useState(30)
+  const [score, setScore] = React.useState(0)
+  //
+  const [showCorrectAnswer, setShowCorrectAnswer] = React.useState(false)
+  
+  // useEffect to get new set of 10 questions
   React.useEffect(() => {
     axios.get('https://opentdb.com/api.php?amount=10')
     .then((res) => {
       const response = res.data;
       setQuestions(response.results);
-      
-    })
-    
-  },[])
+      console.log(response.results)
+    })},[])
+
+  //useEffect to count down 30s time
+  /*
+  React.useEffect(() => {
+    const timer =
+      counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
+  }, [counter]);
+  */
   
   // helper function for randomly show answers
   function shuffle(array) {
@@ -36,7 +48,7 @@ function App() {
  
  
   const questionElements = questions.map(element => {
-    console.log(element)
+    
     let answers = [
                    [element.correct_answer, true], 
                    [element.incorrect_answers[0], false],
@@ -45,46 +57,52 @@ function App() {
                   ]
 
     let shuffledAnswers = shuffle(answers);
-    console.log(shuffledAnswers);
+    //console.log(shuffledAnswers);
+    //console.log("answer")
 
-    return <Question 
-              key={nanoid()}
-              question={JSON.stringify(element.question)} 
-              //correctAnswer={JSON.stringify(element.correct_answer)}
-              //answer2={JSON.stringify(element.incorrect_answers[1])}
-              //answer3={JSON.stringify(element.incorrect_answers[2])}
-              //answer4={JSON.stringify(element.incorrect_answers[0])}
-              answers={shuffledAnswers}
+    
+  
+
+    return (
               
-      />
-  })
+              <Question 
+                  key={nanoid()}
+                  question={JSON.stringify(element.question)} 
+                  answers={shuffledAnswers}
+                  setScore={setScore}
+                  //showCorrectAnswer={showCorrectAnswer}
+                  //setShowCorrectAnswer={setShowCorrectAnswer}
+              />
+             
+      )
+    })
   
   
   
   function nextQuestion() {
+      
       setNextButtonClicked(prevState => ({
       isClicked: true,
       value: prevState.value + 1
     })
-      )
-    //console.log(nextButtonClicked)
-    //console.log(`button clicked ${nextButtonClicked.value} times`)
-    
-    
+   )
   }
-  
   
   
   
   return (
     <div>
-      <Header />
+      <Header counter={counter} score={score} nextButtonClicked={nextButtonClicked}/>
+      
       {
         nextButtonClicked.isClicked ? questionElements[nextButtonClicked.value] : questionElements[0]
       }
       <button onClick={nextQuestion} className='next-question-button'>Next Question</button>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
+
+
+
